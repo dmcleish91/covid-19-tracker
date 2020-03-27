@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Covid19DataService {
     private List<LocationStats> allStats = new ArrayList<>();
 
     @PostConstruct
-    @Scheduled(cron = "* * * 1 * *")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void fetchVirusData() throws IOException, InterruptedException {
 
         HttpClient client = HttpClient.newHttpClient();
@@ -43,6 +44,13 @@ public class Covid19DataService {
             locationStat.setLatestTotalCases(latestCases);
             locationStat.setDifferenceFromPreviousDay(latestCases - previousDayCases);
             allStats.add(locationStat);
+
+        }
+
+        for (int x = 0; x < allStats.size(); x++) {
+             if (allStats.get(x).getCountry().equals("US")) {
+                 allStats.get(x).setCountry("United States");
+             }
         }
     }
 

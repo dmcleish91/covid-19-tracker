@@ -13,7 +13,7 @@
 
 <div class="container">
 <h1>Coronavirus Tracker Application</h1>
-<p class="lead">This application lists the current number of cases reported across the globe</p>
+<p class="lead">This application lists the current number of cases reported across the globe updated every day at 1:00AM </p>
 
 <div class="jumbotron">
     <h1 class="display-4" th:text="${totalReportedCases}"></h1>
@@ -21,8 +21,9 @@
     <hr class="my-4">
     <p class="lead">
         <span>New cases reported since previous day</span>
-        <span th:text="${totalNewCases}"></span>
+        <b><span th:text="${totalNewCases}"></span></b>
     </p>
+   
 
 </div>
 
