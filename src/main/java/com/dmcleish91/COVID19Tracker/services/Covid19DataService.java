@@ -14,6 +14,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class Covid19DataService {
 
     private static String DATABASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
     private List<LocationStats> allStats = new ArrayList<>();
+    private LocalDate currentDate;
+    private String formattedDate;
 
     @PostConstruct
     @Scheduled(cron = "0 0 1 * * ?")
@@ -33,6 +37,10 @@ public class Covid19DataService {
         HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         StringReader csvReader = new StringReader(httpResponse.body());
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvReader);
+
+        currentDate = LocalDate.now();
+        formattedDate = currentDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+
 
         for (CSVRecord record : records) {
             LocationStats locationStat = new LocationStats();
@@ -56,5 +64,9 @@ public class Covid19DataService {
 
     public List<LocationStats> getAllStats() {
         return allStats;
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
     }
 }

@@ -13,7 +13,7 @@
 
 <div class="container">
 <h1>Coronavirus Tracker Application</h1>
-<p class="lead">This application lists the current number of cases reported across the globe updated every day at 1:00AM </p>
+<p class="lead">This application lists the current number of cases reported across the globe</p>
 
 <div class="jumbotron">
     <h1 class="display-4" th:text="${totalReportedCases}"></h1>
@@ -21,9 +21,12 @@
     <hr class="my-4">
     <p class="lead">
         <span>New cases reported since previous day</span>
-        <b><span th:text="${totalNewCases}"></span></b>
+        <span th:text="${totalNewCases}"></span>
     </p>
-   
+    <p class="lead">
+        <span>Last updated: </span><span th:text="${formattedDate}"></span>
+    </p>
+
 
 </div>
 
@@ -46,7 +49,7 @@
 <footer class="page-footer font-small blue">
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">Based on data from  <a href="https://github.com/CSSEGISandData/COVID-19">John Hopkins University CSSE</a> - Built by Dwight Mcleish Jr
+    <div class="footer-copyright text-center py-3">Based on data from  <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">John Hopkins University CSSE</a> - Built by Dwight Mcleish Jr - <a href="https://www.youtube.com/watch?v=8hjNG9GZGnQ" target="_blank">Original version</a>
     </div>
     <!-- Copyright -->
 
