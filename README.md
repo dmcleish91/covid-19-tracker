@@ -1,8 +1,9 @@
-# Covid-19-tracker
-This project was created using ***Spring Boot***
+# Spring Boot Coronavirus Tracker
+This project was created using ***Spring Boot*** and ***Bootstrap 5***
 
-This application parses a CSV file and uses the Thymeleaf dependancy to format and display the data on a webpage. 
+This application parses a CSV file then uses the Thymeleaf dependancy to format and display the data. Bootstrap is utilized to create a responsive webpage.
 - Spring
+- Bootstrap 5
 - Thymeleaf
 
 ![Screenshot](webappsnip.png)
