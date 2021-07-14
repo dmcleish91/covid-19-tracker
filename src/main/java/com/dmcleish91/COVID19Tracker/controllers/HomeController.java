@@ -7,30 +7,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 public class HomeController {
 
-    @Autowired
+
     Covid19DataService covid19DataService;
+
+    @Autowired
+    public void setCovid19DataService(Covid19DataService covid19DataService) {
+        this.covid19DataService = covid19DataService;
+    }
 
     @GetMapping("/")
     public String home(Model model) {
 
-        List<LocationStats> allStats = covid19DataService.getAllStats();
-        int totalReportedCasesRaw = allStats.stream().mapToInt(stat -> stat.getLatestTotalCases()).sum();
-        int totalNewCasesRaw = allStats.stream().mapToInt(stat -> stat.getDifferenceFromPreviousDay()).sum();
-        String totalReportedCases = String.format("%,d", totalReportedCasesRaw);
-        String totalNewCases = String.format("%,d", totalNewCasesRaw);
+        //OptionalDouble average14DaysRaw = allStats.stream().mapToInt(stat -> stat.getAverage14days()).average();
+        //String average14Days = average14DaysRaw.toString();
+        //model.addAttribute("average14Days", average14Days);
 
         model.addAttribute("LocationStats",covid19DataService.getAllStats());
-        model.addAttribute("totalReportedCases",totalReportedCases);
-        model.addAttribute("totalNewCases",totalNewCases);
+        model.addAttribute("totalReportedCases",covid19DataService.getTotalReportedCases());
+        model.addAttribute("totalNewCases",covid19DataService.getTotalNewCases());
         model.addAttribute("formattedDate",covid19DataService.getFormattedDate());
 
         return "home";
+    }
+
+    @GetMapping("/search")
+    public String searchCustomers(@RequestParam("theSearchName") String theSearchName, Model model) {
+
+        // search allStats for requested data
+        List<LocationStats> searchResults = covid19DataService.getSearchResults(theSearchName);
+
+        model.addAttribute("LocationStats",searchResults);
+        model.addAttribute("totalReportedCases",covid19DataService.getTotalReportedCases());
+        model.addAttribute("totalNewCases",covid19DataService.getTotalNewCases());
+        model.addAttribute("formattedDate",covid19DataService.getFormattedDate());
+
+        return "home";
+
     }
 
 }

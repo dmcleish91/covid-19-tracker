@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <title>Coronavirus Tracker Application</title>
@@ -9,10 +9,10 @@
 
 </head>
 
-<body class="">
+<body class="bg-light">
 
 <div class="container">
-<h1>Coronavirus Tracker Application</h1>
+<h1><a class="text-decoration-none text-reset" href="/">Coronavirus Tracker Application</a></h1>
 <p class="lead">This application lists the current number of cases reported across the globe</p>
 
 <div class="mb-4">
@@ -25,6 +25,10 @@
             <span>New cases reported since previous day</span>
             <span th:text="${totalNewCases}"></span>
         </p>
+        <!--<p class="lead">
+            <span>14 day average new cases</span>
+            <span th:text="${average14Days}"></span>
+        </p>-->
         <p class="lead">
             <span>Last updated: </span><span th:text="${formattedDate}"></span>
         </p>
@@ -32,28 +36,38 @@
     </div>
 </div>
 
+<form action="/search" method="get">
+    <div class="row align-items-center mb-3">
+        <div class="col-10">
+            <input type="text" class="form-control" name="theSearchName" placeholder="Search"/>
+        </div>
+        <div class="col-2 d-grid mx-auto">
+            <button type="submit" class="btn btn-outline-secondary" value="Search">Search</button>
+        </div>
+    </div>
+</form>
+
 <table class="table table-hover table-sm" >
     <tr>
         <th>State</th>
         <th>Country</th>
         <th>Total cases reported</th>
-        <th>Changes since last day</th>
+        <th>Daily new cases</th>
+        <!--<th>14 day average new cases</th>-->
     </tr>
     <tr th:each="LocationStat : ${LocationStats}">
         <td th:text="${LocationStat.state}"></td>
         <td th:text="${LocationStat.country}"></td>
         <td th:text="${LocationStat.latestTotalCases}">0</td>
         <td th:text="${LocationStat.differenceFromPreviousDay}">0</td>
+        <!--<td th:text="${LocationStat.getAverage14days()}">0</td>-->
     </tr>
 </table>
 
 <!-- Footer -->
 <footer class="page-footer font-small blue">
 
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">Data from  <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">John Hopkins University CSSE</a> - Created by Dwight Mcleish Jr &copy; 2020
-    </div>
-    <!-- Copyright -->
+    <div class="footer-copyright text-center text-muted py-3">Data from  <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">John Hopkins University CSSE</a> - Created by Dwight Mcleish Jr &copy; 2020</div>
 
 </footer>
 <!-- Footer -->

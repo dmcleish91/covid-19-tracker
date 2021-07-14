@@ -4,6 +4,7 @@ public class LocationStats {
     private String state;
     private String country;
     private int latestTotalCases;
+    private int average14days;
     private int differenceFromPreviousDay;
 
     public int getDifferenceFromPreviousDay() {
@@ -36,6 +37,14 @@ public class LocationStats {
 
     public void setLatestTotalCases(int latestTotalCases) {
         this.latestTotalCases = latestTotalCases;
+    }
+
+    public int getAverage14days() {
+        return average14days;
+    }
+
+    public void setAverage14days(int average14days) {
+        this.average14days = average14days;
     }
 
     @Override
