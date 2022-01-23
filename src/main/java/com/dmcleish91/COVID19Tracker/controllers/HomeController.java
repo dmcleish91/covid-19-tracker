@@ -25,10 +25,6 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
 
-        //OptionalDouble average14DaysRaw = allStats.stream().mapToInt(stat -> stat.getAverage14days()).average();
-        //String average14Days = average14DaysRaw.toString();
-        //model.addAttribute("average14Days", average14Days);
-
         model.addAttribute("LocationStats",covid19DataService.getAllStats());
         model.addAttribute("totalReportedCases",covid19DataService.getTotalReportedCases());
         model.addAttribute("totalNewCases",covid19DataService.getTotalNewCases());
